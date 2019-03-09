@@ -46,10 +46,10 @@ function formatSolution(solution, solutionTime) {
     }
   };
 
-  formattedSolution.conjunto1 = solution[0];
-  formattedSolution.conjunto2 = solution[1];
-  formattedSolution.suma1 = sumaElemsArray(solution[0]);
-  formattedSolution.suma2 = sumaElemsArray(solution[1]);
+  formattedSolution.solution.conjunto1 = solution[0];
+  formattedSolution.solution.conjunto2 = solution[1];
+  formattedSolution.solution.suma1 = sumaElemsArray(solution[0]);
+  formattedSolution.solution.suma2 = sumaElemsArray(solution[1]);
 
   return formattedSolution;
 }
