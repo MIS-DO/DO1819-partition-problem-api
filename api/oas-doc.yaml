@@ -38,7 +38,7 @@ paths:
               $ref: '#/components/schemas/problem'
         description: Problem to be created
         required: true
-  '/api/v1/stress/{itemNumber}/{maxWeight}':
+  '/api/v1/stress/{integNumber}/{maxInt}':
     get:
       x-router-controller: apiv1stressController
       description: >-
@@ -150,6 +150,7 @@ components:
             - conjunto2
             - suma1
             - suma2
+            - stats
       required:
         - id
         - problem
