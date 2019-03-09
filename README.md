@@ -1,4 +1,4 @@
-# OAS generated server
+# Partition Problem API
 
 ## Overview
 This is a Partition Problem API for stress analysis and benchmarking. 
