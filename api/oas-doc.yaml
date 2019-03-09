@@ -1,0 +1,268 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Problem list
+  description: >-
+    This is an OpenAPI Specification created by oas-wizard
+    (https://github.com/pafmon/oas-wizard)  
+  contact:
+    name: PabloFM
+    email: pablofm@us.es
+    url: 'http://www.isa.us.es'
+  license:
+    name: MIT
+    url: 'http: //opensource.org/licenses/MIT'
+paths:
+  /api/v1/problems:
+    post:
+      description: Creates a new problem
+      operationId: newProblem
+      responses:
+        '200':
+          description: problem response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+      requestBody:
+        x-name: problem
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/problem'
+        description: Problem to be created
+        required: true
+  '/api/v1/stress/{itemNumber}/{maxWeight}':
+    get:
+      x-router-controller: apiv1stressController
+      description: >-
+        Stress analysis: It Creates a synthetic problem and solves it returning
+        time and memory used
+      operationId: getStress
+      parameters:
+        - name: integNumber
+          in: path
+          description: Number of integers for the generated problem
+          required: true
+          schema:
+            type: integer
+        - name: maxInt
+          in: path
+          description: Max value for the integers that can be generated in the request
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: stress response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stressResult'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+  /api/v1/stress/info:
+    get:
+      x-router-controller: apiv1stressController
+      description: Returns the performance info about system status
+      operationId: getStressInfo
+      responses:
+        '200':
+          description: stress info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stressInfo'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorModel'
+components:
+  schemas:
+    errorModel:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    problem:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        problem:
+          type: object
+          properties:
+            idProblem:
+              type: string
+            listInt:
+              type: array
+              items:
+                type: integer
+          required:
+            - idProblem
+            - listInt
+        solution:
+          type: object
+          properties:
+            conjunto1:
+              type: array
+              minItems: 1
+              items:
+                type: integer
+            conjunto2:
+              type: array
+              minItems: 1
+              items:
+                type: integer
+            suma1:
+              type: integer
+            suma2:
+              type: integer
+            stats:
+              type: object
+              properties:
+                solvingTime:
+                  type: number
+              required:
+                - solvingTime
+          required:
+            - conjunto1
+            - conjunto2
+            - suma1
+            - suma2
+      required:
+        - id
+        - problem
+    stressResult:
+      description: ''
+      type: object
+      properties:
+        problem:
+          type: string
+          minLength: 1
+        parameters:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            required:
+              - id
+              - value
+            properties:
+              id:
+                type: string
+                minLength: 1
+              value:
+                type: integer
+        info:
+          type: object
+          properties:
+            initialMemory:
+              type: number
+            heapStats:
+              type: object
+          required:
+            - initialMemory
+            - heapStats
+        result:
+          type: object
+          properties:
+            stages:
+              type: array
+              uniqueItems: true
+              minItems: 1
+              items:
+                required:
+                  - id
+                  - duration
+                  - memory
+                properties:
+                  id:
+                    type: string
+                    minLength: 1
+                  duration:
+                    type: number
+                  memory:
+                    type: number
+            total:
+              type: object
+              properties:
+                duration:
+                  type: number
+                memory:
+                  type: number
+              required:
+                - duration
+                - memory
+          required:
+            - stages
+            - total
+      required:
+        - problem
+        - parameters
+        - info
+        - result
+    stressInfo:
+      description: ''
+      type: object
+      properties:
+        cpuUsage:
+          type: number
+        cpuFree:
+          type: number
+        cpuCount:
+          type: number
+        cpuInfo:
+          type: object
+        freemem:
+          type: number
+        totalmem:
+          type: number
+        freememPercentage:
+          type: number
+        sysUptime:
+          type: number
+        processUptime:
+          type: number
+        loadavgLast1Minute:
+          type: number
+        loadavgLast5Minutes:
+          type: number
+        loadavgLast15Minutes:
+          type: number
+        platform:
+          type: string
+          minLength: 1
+      required:
+        - cpuUsage
+        - cpuFree
+        - cpuCount
+        - freemem
+        - totalmem
+        - freememPercentage
+        - sysUptime
+        - processUptime
+        - loadavgLast1Minute
+        - loadavgLast5Minutes
+        - loadavgLast15Minutes
+        - platform
