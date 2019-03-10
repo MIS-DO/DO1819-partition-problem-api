@@ -8,7 +8,8 @@ var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({
-  strict: false
+  strict: false,
+  limit: '50mb'
 }));
 var oasTools = require('oas-tools');
 var jsyaml = require('js-yaml');
