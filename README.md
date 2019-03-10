@@ -112,6 +112,7 @@ will get:
 
 With the endpoint `/api/v1/stress/info` you get info about the system where the api is working
 
+`GET /api/v1/stress/info`
 will get:
 ```json
 {
