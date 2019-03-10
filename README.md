@@ -108,3 +108,58 @@ will get:
   }
 }
 ```
+#### Get Info
+
+With the endpoint `/api/v1/stress/info` you get info about the system where the api is working
+
+will get:
+```json
+{
+  "cpuUsage": 0.5906515580736544,
+  "cpuFree": 0.3700564971751412,
+  "cpuCount": 8,
+  "memInfo": {
+    "total": 61440.145,
+    "free": 2556.34,
+    "used": 58883.805,
+    "active": 30513.848,
+    "available": 25855.027,
+    "buffcache": 28369.957,
+    "swaptotal": 62463.996,
+    "swapused": 208.664,
+    "swapfree": 61603.383
+  },
+  "freemem": 2544.789,
+  "totalmem": 61440.145,
+  "freememPercentage": 0.04141899538022174,
+  "cpuInfo": {
+    "manufacturer": "Intel®",
+    "brand": "Xeon® E5-2670 v2",
+    "vendor": "",
+    "family": "",
+    "model": "",
+    "stepping": "",
+    "revision": "",
+    "voltage": "",
+    "speed": "2.50",
+    "speedmin": "",
+    "speedmax": "",
+    "cores": 8,
+    "physicalCores": 4,
+    "processors": 1,
+    "socket": "",
+    "cache": {
+      "l1d": "",
+      "l1i": "",
+      "l2": "",
+      "l3": ""
+    }
+  },
+  "sysUptime": 976097,
+  "processUptime": 153.901,
+  "loadavgLast1Minute": 5.60986328125,
+  "loadavgLast5Minutes": 5.158203125,
+  "loadavgLast15Minutes": 8.33349609375,
+  "platform": "linux"
+}
+```
