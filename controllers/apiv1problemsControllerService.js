@@ -26,17 +26,14 @@ function partitionProblemSolving(problem) {
   return solucion;
 };
 
-function formatSolution(solution, solutionTime) {
+function formatSolution(solution, solutionTime, problem, id) {
   var stats = {
     "solvingTime" : solutionTime
   }
   
   var formattedSolution = {
-    "id": "",
-    "problem": {
-      "idProblem": "",
-      "listInt": []
-    },
+    "id": id,
+    "problem": problem,
     "solution": {
       "conjunto1": [],
       "conjunto2": [],
@@ -61,19 +58,19 @@ module.exports.newProblem = function newProblem(req, res, next) {
   var problem = problemRequest.problem;
   var arraySolution = [];
   
-  var problemResponse = {
-    "id": problemId,
-    "problem": problem,
-    "solution": {
-      "conjunto1": [],
-      "conjunto2": [],
-      "suma1": 0,
-      "suma2": 0,
-      "stats": {
-        "solvingTime": 0
-      }
-    }
-  };
+  // var problemResponse = {
+  //   "id": problemId,
+  //   "problem": problem,
+  //   "solution": {
+  //     "conjunto1": [],
+  //     "conjunto2": [],
+  //     "suma1": 0,
+  //     "suma2": 0,
+  //     "stats": {
+  //       "solvingTime": 0
+  //     }
+  //   }
+  // };
 
   var beginHR = process.hrtime()
   var begin = beginHR[0] * 1000000 + beginHR[1] / 1000;
@@ -85,7 +82,7 @@ module.exports.newProblem = function newProblem(req, res, next) {
 
   var solutionSolvingTime = (end - begin) / 1000;
 
-  problemResponse = formatSolution(arraySolution, solutionSolvingTime);
+  var problemResponse = formatSolution(arraySolution, solutionSolvingTime, problem, problemId);
 
   res.send(problemResponse);
 };

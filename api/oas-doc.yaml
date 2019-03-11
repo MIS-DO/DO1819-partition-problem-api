@@ -23,7 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/problem'
+                $ref: '#/components/schemas/problemResponse'
         default:
           description: unexpected error
           content:
@@ -121,6 +121,28 @@ components:
           required:
             - idProblem
             - listInt
+      required:
+        - id
+        - problem
+    problemResponse:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 1
+        problem:
+          type: object
+          properties:
+            idProblem:
+              type: string
+            listInt:
+              type: array
+              items:
+                type: integer
+          required:
+            - idProblem
+            - listInt
         solution:
           type: object
           properties:
@@ -139,18 +161,17 @@ components:
             suma2:
               type: integer
             stats:
-              type: object
-              properties:
-                solvingTime:
-                  type: number
-              required:
-                - solvingTime
+                type: object
+                properties:
+                  solvingTime:
+                    type: number
+                required:
+                  - solvingTime
           required:
             - conjunto1
             - conjunto2
             - suma1
-            - suma2
-            - stats
+            - suma2        
       required:
         - id
         - problem
